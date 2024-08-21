@@ -1,0 +1,35 @@
+# Node modules
+node_modules/
+
+# Parcel cache
+.parcel-cache/
+
+# Build output
+dist/
+
+# Test coverage reports
+coverage/
+
+# Environment variables
+.env
+
+# Log files
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# Parcel config
+.cache/
+
+# Jest coverage
+coverage/
+jest.config.js
+
+# Tailwind output
+styles.css

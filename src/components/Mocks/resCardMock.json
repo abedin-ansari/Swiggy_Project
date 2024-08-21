@@ -1,0 +1,23 @@
+{
+    "info": {
+        "cloudinaryImageId": "yhnrql8wxgu8sgqjczos",
+        "name": "Manohar Dairy and Restaurant",
+        "cuisines": [
+            "Sweets",
+            "Beverages",
+            "Desserts",
+            "Snacks",
+            "Chaat",
+            "Street Food",
+            "Chinese",
+            "Bakery",
+            "North Indian",
+            "South Indian"
+        ],
+        "avgRating": 4.6,
+        "costForTwo": "₹300 for two",
+        "sla": {
+            "deliveryTime": 25
+        }
+    }
+}

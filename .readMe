@@ -1,0 +1,4 @@
+// in place of this we can also make an arr useState like this ->
+
+  // const arr = useState(resList);
+  // const [listOfRestaurant, setListOfRestaurent] = arr; // this is called array destructuring.
