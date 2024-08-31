@@ -1,4 +1,4 @@
-const vercelProxy = "https://your-vercel-app-name.vercel.app/proxy?url=";
+const vercelProxy = "https://swiggy-project-delta.vercel.app/proxy?url=";
 
 export const CDN_url = `${vercelProxy}https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/`;
 
