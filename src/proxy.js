@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
       throw new Error(`Failed to fetch data: ${response.statusText}`);
     }
 
-    const data = await response.text();
+    const data = await response.text(); // or response.json() if the response is JSON
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET");
@@ -37,6 +37,7 @@ module.exports = async (req, res) => {
 
     res.status(200).send(data);
   } catch (error) {
+    // Return JSON error message
     res
       .status(500)
       .json({ error: "Failed to fetch data", message: error.message });
