@@ -5,3 +5,6 @@ coverage/
 .env
 .cache/
 *.log
+
+
+UserClass.jsx

@@ -30,3 +30,7 @@ yarn.lock
 # Jest coverage
 coverage/
 jest.config.js
+.vercel
+
+
+UserClass.jsx
