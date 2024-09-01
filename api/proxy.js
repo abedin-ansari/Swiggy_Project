@@ -4,6 +4,7 @@ module.exports = async (req, res) => {
   const { url } = req.query;
 
   if (!url) {
+    console.error("No URL provided");
     return res.status(400).json({ error: "Missing URL parameter" });
   }
 
@@ -11,6 +12,7 @@ module.exports = async (req, res) => {
     const response = await fetch(url);
 
     if (!response.ok) {
+      console.error(`Failed to fetch data: ${response.statusText}`);
       return res
         .status(response.status)
         .json({ error: "Failed to fetch data" });
@@ -18,7 +20,6 @@ module.exports = async (req, res) => {
 
     const contentType = response.headers.get("content-type");
 
-    // Return response as JSON or text based on the content type
     if (contentType && contentType.includes("application/json")) {
       const data = await response.json();
       res.setHeader("Content-Type", "application/json");
