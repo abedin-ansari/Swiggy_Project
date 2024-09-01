@@ -7,40 +7,30 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: "Missing URL parameter" });
   }
 
-  // Handle CORS preflight requests
-  if (req.method === "OPTIONS") {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
-    return res.status(200).end();
-  }
-
   try {
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch data: ${response.statusText}`);
+      return res
+        .status(response.status)
+        .json({ error: "Failed to fetch data" });
     }
 
-    const data = await response.text(); // or response.json() if the response is JSON
+    const contentType = response.headers.get("content-type");
 
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET");
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
-    res.setHeader("Content-Type", response.headers.get("content-type"));
-
-    res.status(200).send(data);
+    // Return response as JSON or text based on the content type
+    if (contentType && contentType.includes("application/json")) {
+      const data = await response.json();
+      res.setHeader("Content-Type", "application/json");
+      res.status(200).json(data);
+    } else {
+      const data = await response.text();
+      res.setHeader("Content-Type", contentType || "text/plain");
+      res.status(200).send(data);
+    }
   } catch (error) {
-    // Return JSON error message
-    res
-      .status(500)
-      .json({ error: "Failed to fetch data", message: error.message });
+    console.error("Error fetching data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
