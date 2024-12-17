@@ -1,9 +1,9 @@
 const About = () => {
   return (
     <div className="about p-4 text-center">
-      <h2 className="text-lg md:text-2xl mb-4">About Foodistaan</h2>
+      <h2 className="text-lg md:text-2xl mb-4">About Food Villa</h2>
       <p className="mb-4">
-        Foodistaan is your go-to platform for discovering and exploring the best
+        Food Villa is your go-to platform for discovering and exploring the best
         restaurants and dishes in town. Our app provides detailed menus,
         reviews, and more to help you make informed dining decisions.
       </p>
@@ -15,10 +15,10 @@ const About = () => {
           <div className="row gy-4">
             <div className="col-lg-5 col-md-12 footer-info">
               <a href="#" className="logo d-flex align-items-center">
-                <span>Foodistaan</span>
+                <span>Food Villa</span>
               </a>
               <p>
-                Foodistaan offers you the best experience to explore
+                Food Villa offers you the best experience to explore
                 restaurants, dishes, and reviews. Discover your next favorite
                 spot with ease and convenience.
               </p>
@@ -43,7 +43,7 @@ const About = () => {
           <div className="copyright">
             &copy; Copyright{" "}
             <strong>
-              <span>Foodistaan</span>
+              <span>Food Villa</span>
             </strong>
             . All Rights Reserved
           </div>
