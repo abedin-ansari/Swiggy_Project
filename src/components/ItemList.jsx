@@ -1,100 +1,78 @@
+import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { CDN_url } from "../utils/constants";
 import { addItems } from "../slice/CartSlice";
 
-const ItemList = ({items}) => {
-
+const ItemList = ({ items }) => {
   const dispatch = useDispatch();
 
   const handleAddItems = (item) => {
-    // basically dispatch action
-    dispatch(addItems(item)); // This is action.payload (action.payload = pizza)
-  }
+    dispatch(addItems(item));
+  };
 
-    return(
-      <div>
-         {items.map((item) => (
-          <div 
-            key={item.card.info.id} 
-            className="p-2 m-2 border-gray-400 border-b-2 text-left flex justify-between"
-          >
-          <div className="w-9/12 mb-8">
-            <div className="py-2 my-2">
-              <span>{item.card.info.name}</span>
-              <span> - ₹
-                {item.card.info.price ?
-                  (item.card.info.price/100
-                    ) : (
-                       item.card.info.defaultPrice/100)
-                }
-              </span>
-            </div>
-              <p className="text-xs">{item.card.info.description}</p>
+  const buttonClasses =
+    "w-24 px-4 py-0.5 rounded text-sm font-medium shadow-sm transition-all duration-200 " +
+    "border border-green-600 bg-white text-green-600 " +
+    "hover:bg-green-600 hover:text-white hover:shadow-md";
+
+  return (
+    <div>
+      {items.map((item, index) => (
+        <motion.div
+          key={item.card.info.id}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.1 }}
+          className="p-6 border-b border-gray-100 last:border-0 flex justify-between items-start hover:bg-gray-50 transition-colors"
+        >
+          <div className="flex-1 pr-8">
+            <h4 className="text-lg font-medium text-gray-800 mb-2">
+              {item.card.info.name}
+            </h4>
+            <span className="text-base font-medium text-gray-700 mb-2 block">
+              ₹
+              {item.card.info.price
+                ? item.card.info.price / 100
+                : item.card.info.defaultPrice / 100}
+            </span>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              {item.card.info.description}
+            </p>
           </div>
-          <div className="w-3/12 p-4 mb-6 relative">
-             <img
-             src={item.card.info.imageId ? `${CDN_url + item.card.info.imageId}` : ""} 
-             className="w-full" />
-          <div className="ml-12">
-               <button 
-                className="absolute bottom-[-5px] bg-black text-white shadow-lg border 
-                                border-white rounded-xl p-[6px] hover:bg-gray-800"
+
+          <div className="relative min-w-[150px] flex flex-col items-center">
+            {item.card.info.imageId ? (
+              <>
+                <motion.img
+                  whileHover={{ scale: 1.05 }}
+                  src={CDN_url + item.card.info.imageId}
+                  alt={item.card.info.name}
+                  className="w-[150px] h-[100px] rounded-lg object-cover"
+                />
+                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    className={buttonClasses}
+                    onClick={() => handleAddItems(item)}
+                  >
+                    ADD
+                  </motion.button>
+                </div>
+              </>
+            ) : (
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                className={buttonClasses + " py-2 mt-2"}
                 onClick={() => handleAddItems(item)}
-                > Add + </button>
+              >
+                ADD
+              </motion.button>
+            )}
           </div>
-          </div>
-        </div>
-        ))}
+        </motion.div>
+      ))}
     </div>
-);
-}
+  );
+};
 
 export default ItemList;
-
-
-// return(
-//     <div>
-//         {items.map(item =>
-//         <div 
-//           key={item.card.info.id} 
-//           className="w-9/12 p-2 m-2 border-gray-400 border-b-2 text-left flex"
-//         >
-
-//             <div className="flex justify-center py-2 mt-4 mb-4 mr-8">
-//               <span>{item.card.info.name}</span>
-//               <span>₹
-//                 {item.card.info.price ?
-//                   (item.card.info.price/100
-//                     ) : (
-//                        item.card.info.defaultPrice/100)
-//                 }
-//               </span>
-//             </div>
-//             <p className="text-xs mt-8">{item.card.info.description}</p>
-
-//         {item.card.info.imageId ? (
-//            <div className="w-3/12 p-4 mb-8 ml-auto flex flex-col items-center relative">
-//              <img 
-//                 src={CDN_url + item.card.info.imageId} 
-//                 alt="MenuItem" 
-//                 className=" h-16 object-contain" // Adjust the size as needed
-//             />
-//              <button 
-//                 className="mt-2 cursor-pointer absolute bottom-[-6px] bg-gray-300 border 
-//                            border-black text-black px-2 py-1 hover:bg-blue-300 rounded-lg">
-//                Add
-//              </button>
-//            </div>
-//            ) : (
-//             <div className="ml-auto flex justify-center  mr-[89px]">
-//               <button 
-//                 className="mt-8 bg-gray-300 border border-black text-black px-2 h-9 hover:bg-blue-300 rounded-lg">
-//                   Add
-//               </button>
-//             </div>
-//     )}
-
-//         </div>
-//         )}
-//     </div>
-// );

@@ -22,7 +22,6 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
-
 // const ContactUs = () => {
 //   return (
 //     <div className="contact-us">

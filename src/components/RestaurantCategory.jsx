@@ -1,5 +1,5 @@
-import { useState } from "react";
 import ItemList from "./ItemList";
+import { motion, AnimatePresence } from "framer-motion";
 
 const RestaurantCategory = ({
   data,
@@ -7,39 +7,49 @@ const RestaurantCategory = ({
   setExpandIndex,
   currentIndex,
 }) => {
-  // const [showItems, setShowItems] = useState(false);  // Uncontrolled component
-
   const handleClick = () => {
-    if (showItems) {
-      // this if else is written becouse previously accordian were opened but not -
-      setExpandIndex(null); // - not closes but after this condition when we click on accordian it will close.
-    } else {
-      setExpandIndex(currentIndex);
-    }
-
-    // setShowItems(true);    // After clicking on this items will shown but it only work one after clicked
-    //setShowItems(!showItems); // this will work for savral times after clicks
+    setExpandIndex(showItems ? null : currentIndex);
   };
 
   return (
-    <div>
-      {/* Header */}
-      <div className="w-6/12 mx-auto my-2 bg-gray-300 p-2 shadow-lg">
-        <div
-          className="flex justify-between cursor-pointer"
-          onClick={handleClick}
-        >
-          <span className="font-semibold text-lg">
-            {data.title}({data.itemCards.length}){" "}
-            {/* It show how many data in specific itemcard ex->Recommended""(6)""*/}
-          </span>
-          <span>⬇️</span>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="bg-white rounded-lg shadow-md overflow-hidden"
+    >
+      <div
+        className="p-6 cursor-pointer hover:bg-gray-50 transition-colors"
+        onClick={handleClick}
+      >
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-bold text-gray-800">
+            {data.title} ({data.itemCards.length})
+          </h3>
+          <motion.span
+            animate={{ rotate: showItems ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            ▼
+          </motion.span>
         </div>
-
-        {showItems && <ItemList items={data.itemCards} />}
       </div>
-      {/* Accordion Body */}
-    </div>
+
+      <AnimatePresence>
+        {showItems && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <div className="border-t border-gray-100">
+              <ItemList items={data.itemCards} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
+
 export default RestaurantCategory;

@@ -87,7 +87,7 @@ const RestaurantCard = ({ resData }) => {
                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              <p className="text-base font-medium text-gray-600">{areaName}</p>
+              <p className="text-base font-normal text-gray-600">{areaName}</p>
             </div>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-gray-100">

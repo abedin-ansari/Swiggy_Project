@@ -53,7 +53,7 @@ const Body = () => {
   ) : (
     <div className="min-h-screen bg-gradient-to-b bg-gray-300">
       {/* Search and Filter Section */}
-      <div className="sticky top-[64px] z-10 bg-gray-300 shadow-sm">
+      <div className="z-10 bg-gray-300 shadow-sm">
         <div className="max-w-7xl mx-auto py-4">
           <div className="px-4">
             {/* Title and Top Rated Button */}

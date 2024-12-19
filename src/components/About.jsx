@@ -1,72 +1,86 @@
 const About = () => {
   return (
-    <div className="about p-4 text-center">
-      <h2 className="text-lg md:text-2xl mb-4">About Food Villa</h2>
-      <p className="mb-4">
-        Food Villa is your go-to platform for discovering and exploring the best
-        restaurants and dishes in town. Our app provides detailed menus,
-        reviews, and more to help you make informed dining decisions.
-      </p>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-3xl mx-auto px-4">
+        {/* About Section */}
+        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-6">
+            About Food Villa 🍕
+          </h1>
+          <p className="text-gray-600 mb-6 leading-relaxed">
+            Hey there! Welcome to Food Villa - my food delivery project that I
+            built while learning React. This website helps you discover amazing
+            restaurants and order your favorite dishes with just a few clicks.
+          </p>
+          <p className="text-gray-600 mb-6 leading-relaxed">
+            I created this project to practice my React skills and learn
+            concepts like React Router, Redux Toolkit, and Tailwind CSS. The app
+            uses Swiggy's live API to fetch real restaurant data!
+          </p>
+        </div>
 
-      {/* Include the ContactUs component here */}
+        {/* Features Section */}
+        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">
+            Key Features ⭐
+          </h2>
+          <ul className="list-disc list-inside space-y-3 text-gray-600">
+            <li>Browse restaurants and their menus</li>
+            <li>Search for your favorite restaurants</li>
+            <li>Add items to cart</li>
+            <li>Responsive design - works on mobile too!</li>
+            <li>Uses Redux for state management</li>
+            <li>Built with React and Tailwind CSS</li>
+          </ul>
+        </div>
 
-      <footer className="footer mt-8">
-        <div className="container">
-          <div className="row gy-4">
-            <div className="col-lg-5 col-md-12 footer-info">
-              <a href="#" className="logo d-flex align-items-center">
-                <span>Food Villa</span>
+        {/* Contact Section */}
+        <div className="bg-white rounded-lg shadow-sm p-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">
+            Let's Connect 👋
+          </h2>
+          <p className="text-gray-600 mb-6">
+            I'm a passionate web developer learning and building cool stuff.
+            Feel free to reach out if you want to discuss the project or just
+            say hi!
+          </p>
+          <div className="space-y-4 text-gray-600">
+            <p className="flex items-center">
+              <span className="mr-2">📧</span>
+              <a
+                href="mailto:youremail@example.com"
+                className="text-orange-500 hover:text-orange-600"
+              >
+                youremail@example.com
               </a>
-              <p>
-                Food Villa offers you the best experience to explore
-                restaurants, dishes, and reviews. Discover your next favorite
-                spot with ease and convenience.
-              </p>
-              <div className="social-links mt-3">
-                <a href="#" className="twitter">
-                  <i className="fa fa-twitter"></i>
-                </a>
-                <a href="#" className="facebook">
-                  <i className="fa fa-facebook"></i>
-                </a>
-                <a href="#" className="instagram">
-                  <i className="fa fa-instagram"></i>
-                </a>
-                <a href="#" className="linkedin">
-                  <i className="fa fa-linkedin"></i>
-                </a>
-              </div>
-            </div>
+            </p>
+            <p className="flex items-center">
+              <span className="mr-2">💻</span>
+              <a
+                href="https://github.com/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-orange-500 hover:text-orange-600"
+              >
+                GitHub Profile
+              </a>
+            </p>
+            <p className="flex items-center">
+              <span className="mr-2">👔</span>
+              <a
+                href="https://linkedin.com/in/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-orange-500 hover:text-orange-600"
+              >
+                LinkedIn Profile
+              </a>
+            </p>
           </div>
         </div>
-        <div className="foot-container mt-4">
-          <div className="copyright">
-            &copy; Copyright{" "}
-            <strong>
-              <span>Food Villa</span>
-            </strong>
-            . All Rights Reserved
-          </div>
-          <div className="credits">
-            Designed by <a href="#">Abedin</a>
-          </div>
-        </div>
-      </footer>
+      </div>
     </div>
   );
 };
 
 export default About;
-
-// import User from "./User";
-
-// const About = () => {
-//   return (
-//     <div className="about p-4 text-center">
-//       <h2 className="text-lg md:text-2xl">This is About section</h2>
-//       <User />
-//     </div>
-//   );
-// };
-
-// export default About;
