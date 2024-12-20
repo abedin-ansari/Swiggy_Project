@@ -11,6 +11,11 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import Cart from "./components/Cart";
 import { Provider } from "react-redux"; // Its a kind of bridge between react and redux.
 import appStore from "./utils/appStore";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { Toaster } from "react-hot-toast";
+import ResetPassword from "./components/ResetPassword";
 
 const AppLayout = () => {
   return (
@@ -21,6 +26,13 @@ const AppLayout = () => {
           <Outlet />
         </main>
         <Footer />
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{
+            duration: 3000,
+          }}
+        />
       </div>
     </Provider>
   );
@@ -45,11 +57,31 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/restaurant/:resId",
-        element: <RestaurantMenu />,
+        element: (
+          <ProtectedRoute>
+            <RestaurantMenu />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/cart",
-        element: <Cart />,
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/reset-password",
+        element: <ResetPassword />,
       },
     ],
     errorElement: <Error />,

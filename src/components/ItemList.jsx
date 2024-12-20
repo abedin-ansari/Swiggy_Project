@@ -35,7 +35,7 @@ const ItemList = ({ items }) => {
                 ? item.card.info.price / 100
                 : item.card.info.defaultPrice / 100}
             </span>
-            <p className="text-sm text-gray-600 leading-relaxed">
+            <p className="hidden sm:block text-sm text-gray-600 leading-relaxed">
               {item.card.info.description}
             </p>
           </div>

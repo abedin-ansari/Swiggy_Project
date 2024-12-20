@@ -32,13 +32,17 @@ const Body = () => {
 
   const onlineStatus = useOnlineStatus();
 
-  if (onlineStatus === false)
+  if (!listOfRestaurant) {
+    return <Shimmer />;
+  }
+
+  if (!onlineStatus) {
     return (
       <h1>
-        Looks like you coonection isn't stable. Kindly check your internet
-        Connection!
+        Looks like you're offline!! Please check your internet connection.
       </h1>
     );
+  }
 
   const handleSearch = () => {
     // This handleSearch used for enter key results same as search click.
@@ -130,9 +134,9 @@ const Body = () => {
         </div>
       </div>
 
-      {/* Restaurant List */}
-      <div className="max-w-[1500px] mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      {/* Restaurant List - Updated grid for mobile */}
+      <div className="max-w-[1500px] mx-auto px-2 sm:px-4 py-4 sm:py-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4">
           {filteredRestaurant.map((restaurant) => (
             <Link
               key={restaurant.info.id}

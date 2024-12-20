@@ -1,16 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart, removeItems } from "../slice/CartSlice";
 import { CDN_url } from "../utils/constants";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
+  const user = useSelector((store) => store.user);
+  const location = useSelector((store) => store.location);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(null);
   const [paymentStep, setPaymentStep] = useState("select"); // 'select', 'upi', 'card'
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   const handleClearCart = () => {
     dispatch(clearCart());
@@ -29,6 +40,10 @@ const Cart = () => {
   };
 
   const handlePayment = () => {
+    if (!location) {
+      toast.error("Please add a delivery location");
+      return;
+    }
     setIsPaymentModalOpen(true);
   };
 
@@ -301,7 +316,6 @@ const Cart = () => {
         <button
           onClick={() => {
             setShowSuccess(false);
-            window.location.href = "/";
           }}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
         >
@@ -354,7 +368,8 @@ const Cart = () => {
         <button
           onClick={() => {
             setShowSuccess(false);
-            window.location.href = "/";
+            dispatch(clearCart());
+            navigate("/");
           }}
           className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors"
         >
