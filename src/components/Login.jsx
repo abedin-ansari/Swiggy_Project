@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../slice/userSlice";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const loadingToast = toast.loading("Signing in...");
+
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
@@ -30,8 +33,12 @@ const Login = () => {
         })
       );
 
+      toast.dismiss(loadingToast);
+      toast.success("Signed in successfully!");
+
       navigate("/");
     } catch (error) {
+      toast.error(error.message);
       setError(error.message);
     }
   };
@@ -112,7 +119,7 @@ const Login = () => {
                 <input
                   type="email"
                   required
-                  className="block w-full pl-11 pr-4 py-3.5 text-white bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-300 transition-all duration-200 placeholder-white backdrop-blur-sm"
+                  className="block w-full pl-11 pr-4 py-3.5 text-orange-700 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-300 transition-all duration-200 placeholder-white backdrop-blur-sm"
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -143,7 +150,7 @@ const Login = () => {
                 <input
                   type="password"
                   required
-                  className="block w-full pl-11 pr-4 py-3.5 text-white bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-300 transition-all duration-200 placeholder-white backdrop-blur-sm"
+                  className="block w-full pl-11 pr-4 py-3.5 text-orange-700 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-300 transition-all duration-200 placeholder-white backdrop-blur-sm"
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

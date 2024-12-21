@@ -8,6 +8,7 @@ import LocationSelector from "./LocationSelector";
 import { auth } from "../utils/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { removeUser, addUser } from "../slice/userSlice";
+import toast from "react-hot-toast";
 
 const Header = () => {
   const [loginBtn, setLoginBtn] = useState("Login");
@@ -42,10 +43,14 @@ const Header = () => {
   const handleAuth = async () => {
     if (userState) {
       try {
+        const loadingToast = toast.loading("Signing out...");
         await signOut(auth);
         dispatch(removeUser());
+        toast.dismiss(loadingToast);
+        toast.success("Signed out successfully!");
         navigate("/login");
       } catch (error) {
+        toast.error("Error signing out");
         console.error("Error signing out:", error);
       }
     } else {

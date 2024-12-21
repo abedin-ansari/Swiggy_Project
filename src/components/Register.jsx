@@ -5,6 +5,7 @@ import { auth } from "../utils/firebase";
 import { checkValidateData } from "../utils/validate";
 import { useDispatch } from "react-redux";
 import { addUser } from "../slice/userSlice";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -19,9 +20,14 @@ const Register = () => {
 
     const message = checkValidateData(name, email, password);
     setError(message);
-    if (message) return;
+    if (message) {
+      toast.error(message);
+      return;
+    }
 
     try {
+      const loadingToast = toast.loading("Creating your account...");
+
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -41,8 +47,12 @@ const Register = () => {
         })
       );
 
+      toast.dismiss(loadingToast);
+      toast.success("Account created successfully!");
+
       navigate("/login");
     } catch (error) {
+      toast.error(error.message);
       setError(error.message);
     }
   };
@@ -123,7 +133,7 @@ const Register = () => {
                 <input
                   type="text"
                   required
-                  className="block w-full pl-10 pr-4 py-2.5 text-white bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-300 transition-all duration-200 placeholder-gray-300 backdrop-blur-sm text-sm"
+                  className="block w-full pl-10 pr-4 py-2.5 text-orange-700 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-300 transition-all duration-200 placeholder-gray-300 backdrop-blur-sm text-sm"
                   placeholder="Enter your full name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -154,7 +164,7 @@ const Register = () => {
                 <input
                   type="email"
                   required
-                  className="block w-full pl-11 pr-4 py-2.5 sm:py-3 text-white bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-300 transition-all duration-200 placeholder-white backdrop-blur-sm text-sm"
+                  className="block w-full pl-11 pr-4 py-2.5 sm:py-3 text-orange-700 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-300 transition-all duration-200 placeholder-white backdrop-blur-sm text-sm"
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -185,7 +195,7 @@ const Register = () => {
                 <input
                   type="password"
                   required
-                  className="block w-full pl-11 pr-4 py-2.5 sm:py-3 text-white bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-300 transition-all duration-200 placeholder-white backdrop-blur-sm text-sm"
+                  className="block w-full pl-11 pr-4 py-2.5 sm:py-3 text-orange-700 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500/50 focus:border-orange-300 transition-all duration-200 placeholder-white backdrop-blur-sm text-sm"
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -215,14 +225,14 @@ const Register = () => {
               Create Account
             </button>
 
-            <div className="mt-4 bg-white/10 backdrop-blur-sm border border-white/20 p-3 rounded-xl">
-              <h3 className="text-xs font-semibold text-white mb-2">
+            <div className="mt-4 bg-white/20 backdrop-blur-sm border border-white/30 p-4 rounded-xl">
+              <h3 className="text-sm font-semibold text-white/90 mb-3">
                 Password Requirements:
               </h3>
-              <div className="grid grid-cols-2 gap-2">
-                <div className="flex items-center space-x-1.5">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex items-center space-x-2 bg-white/10 p-2 rounded-lg">
                   <svg
-                    className="h-3.5 w-3.5 text-orange-400"
+                    className="h-4 w-4 text-orange-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -234,11 +244,11 @@ const Register = () => {
                       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  <span className="text-xs text-white">Min. 8 chars</span>
+                  <span className="text-sm text-orange-700">Min. 8 chars</span>
                 </div>
-                <div className="flex items-center space-x-1.5">
+                <div className="flex items-center space-x-2 bg-white/10 p-2 rounded-lg">
                   <svg
-                    className="h-3.5 w-3.5 text-orange-400"
+                    className="h-4 w-4 text-orange-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -250,11 +260,11 @@ const Register = () => {
                       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  <span className="text-xs text-white">One uppercase</span>
+                  <span className="text-sm text-orange-700">One uppercase</span>
                 </div>
-                <div className="flex items-center space-x-1.5">
+                <div className="flex items-center space-x-2 bg-white/10 p-2 rounded-lg">
                   <svg
-                    className="h-3.5 w-3.5 text-orange-400"
+                    className="h-4 w-4 text-orange-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -266,11 +276,11 @@ const Register = () => {
                       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  <span className="text-xs text-white">One lowercase</span>
+                  <span className="text-sm text-orange-700">One lowercase</span>
                 </div>
-                <div className="flex items-center space-x-1.5">
+                <div className="flex items-center space-x-2 bg-white/10 p-2 rounded-lg">
                   <svg
-                    className="h-3.5 w-3.5 text-orange-400"
+                    className="h-4 w-4 text-orange-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -282,7 +292,7 @@ const Register = () => {
                       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  <span className="text-xs text-white">One number</span>
+                  <span className="text-sm text-orange-700">One number</span>
                 </div>
               </div>
             </div>
